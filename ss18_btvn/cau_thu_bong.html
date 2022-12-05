@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>cầu thủ dự bị</p>
+    <input id="inputPlayer" type="text" placeholder="nhập tên cầu thủ">
+    <input id="addPlayer" type="button" value="thêm">
+    <input id="clearPlayer" type="button" value="xóa">
+    <ul id="pushPlayer"></ul>
+</body>
+<script>
+    let Player = document.getElementById('inputPlayer');
+    let addPlayer = document.getElementById('addPlayer');
+    let clear = document.getElementById('clearPlayer');
+    let pushPlayer = document.getElementById('pushPlayer');
+
+    addPlayer.addEventListener('click', function (e) {
+
+
+        let liPlayer = document.createElement('li');              //tạo li
+        let liText = document.createTextNode(Player.value);       //giá trị ô addplayer gán biến
+        let button = document.createElement('button');            // tạo buttton
+        button.innerText = "xóa";                                 //tên button là xóa
+        liPlayer.appendChild(liText);                              // gán giá trị nhập vào li
+        liPlayer.appendChild(button);                             // gán thêm một ô button vào li
+        pushPlayer.appendChild(liPlayer);                          // gán li vào ul = pushplayer
+
+        localStorage.setItem(Player.value, "player: " + Player.value);
+
+    });
+
+    function getLocal_pushAll() {
+        for (let i = 0; i < localStorage.length; i++) {
+            let liPlayer = document.createElement('li');
+            let liText = document.createTextNode(localStorage.key(i));
+            let button = document.createElement('button');
+            button.innerText = "Xóa";
+            liPlayer.appendChild(liText);
+            liPlayer.appendChild(button);
+            pushPlayer.appendChild(liPlayer);
+
+            button.addEventListener('click', function () {
+                let delePlayer = button.previousSibling;
+                localStorage.removeItem(localStorage.key(delePlayer));
+                button.parentNode.outerHTML = "";
+            });
+        }
+    }
+    getLocal_pushAll();
+
+    function clrplayer() {
+        localStorage.clear();                           // hàm xóa local
+    }
+    clear.addEventListener('click', function () {
+        clrplayer();                                            //truyền  hàm xóa local vào nút xóa = clear
+    });
+
+</script>
+
+</html>
