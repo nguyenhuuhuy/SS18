@@ -265,12 +265,14 @@ get_Login.addEventListener("click", function () {
     if (flag == true) {
       listUser.push(obj);
       localStorage.setItem("listUser", JSON.stringify(listUser));
+      window.location.href = "login.html"
     } else {
       console.log("tài khoản đã tồn tại!");
       let error_Email = document.getElementById("error_Email");
       error_Email.style.display = "block";
     }
   }
+  
 });
 
 // con mắt hiện pass
